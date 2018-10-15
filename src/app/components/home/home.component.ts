@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   constructor(public _youtube: YoutubeService) {
     this._youtube.getVideos().subscribe((response => {
       this.videos = response;
-      console.log(this.videos);
     }));
   }
 
@@ -30,6 +29,12 @@ export class HomeComponent implements OnInit {
   closeVideo() {
     this.videoSelected = null;
     $('#exampleModal').modal('hide');
+  }
+
+  loadMore() {
+    this._youtube.getVideos().subscribe((response => {
+      this.videos.push.apply(this.videos, response);
+    }));
   }
 
 }
